@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürünler - Zirve Tarım</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .logo-text {
+            font-family: 'Georgia', serif;
+            font-size: 40px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #4b8e26, #a4c639, #4b8e26);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            animation: logoShine 6s linear infinite;
+            transition: transform 0.3s ease;
+            cursor: default;
+        }
+
+        .logo-text span {
+            font-style: italic;
+            font-family: 'Courier New', monospace;
+            color: #608c2a;
+            -webkit-text-fill-color: initial;
+            background: none;
+            text-shadow: 1px 1px 3px rgba(96, 140, 42, 0.4);
+        }
+
+        .logo-text:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes logoShine {
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 30px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: #608c2a;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: #608c2a;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        /* Ürünler Sayfası Başlık */
+        .page-title {
+            text-align: center;
+            padding: 150px 20px 50px;
+            background-color: #f0f5e5;
+            margin-bottom: 50px;
+        }
+        
+        .page-title h1 {
+            font-size: 42px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .page-title p {
+            font-size: 18px;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Ürün Kategorileri */
+        .product-container {
+            max-width: 1200px;
+            margin: 0 auto 50px;
+            padding: 0 20px;
+        }
+        
+        .product-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .category-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .category-content {
+            padding: 20px;
+        }
+        
+        .category-name {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .category-desc {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .category-button {
+            display: inline-block;
+            background-color: #608c2a;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .category-button:hover {
+            background-color: #4a7020;
+        }
+        
+        /* Bilgi Kartları */
+        .info-cards {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        
+        .info-card {
+            flex-basis: calc(33.333% - 20px);
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .info-icon {
+            font-size: 40px;
+            color: #608c2a;
+            margin-bottom: 20px;
+        }
+        
+        .info-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .info-text {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 30px 0;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .social-media {
+            display: flex;
+            align-items: center;
+        }
+        
+        .social-title {
+            margin-right: 20px;
+            font-size: 20px;
+        }
+        
+        .social-icons {
+            display: flex;
+        }
+        
+        .social-icons a {
+            margin-left: 15px;
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
+        }
+        
+        .footer-links {
+            display: flex;
+        }
+        
+        .footer-links a {
+            margin-left: 20px;
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #608c2a;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            .nav-menu {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-menu li {
+                margin: 10px;
+            }
+            
+            .info-card {
+                flex-basis: 100%;
+            }
+            
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .social-media {
+                margin-top: 20px;
+                flex-direction: column;
+            }
+            
+            .social-title {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .footer-links {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            .footer-links a {
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-text">ZİRVE <span>TARIM</span></div>
+            <ul class="nav-menu">
+                <li><a href="anasayfa.html">Ana Sayfa</a></li>
+                <li><a href="urunler.html">Ürünler</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li><a href="sss.html">S.S.S</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <section class="page-title">
+        <h1>Ürünlerimiz</h1>
+        <p>Zirve Tarım olarak, hayvancılık ve tarım sektörüne yönelik en kaliteli ürünleri sunuyoruz. Büyükbaş, küçükbaş, kanatlı hayvanlar ve sera ürünleri için özel çözümlerimiz bulunmaktadır.</p>
+    </section>
+    
+    <div class="product-container">
+        <div class="product-categories">
+            <div class="category-card">
+                <img src="büyükbaş.jpg" alt="Büyükbaş Hayvan Ürünleri" class="category-image">
+                <div class="category-content">
+                    <h3 class="category-name">Büyükbaş Hayvan Ürünleri</h3>
+                    <p class="category-desc">Büyükbaş hayvanlarınız için kaliteli yem ve sağlık ürünleri ile verim ve sağlık garantisi.</p>
+                    <a href="buyukbas.html" class="category-button">İncele</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <img src="küçük.webp" alt="Küçükbaş Hayvan Ürünleri" class="category-image">
+                <div class="category-content">
+                    <h3 class="category-name">Küçükbaş Hayvan Ürünleri</h3>
+                    <p class="category-desc">Küçükbaş hayvanlarınız için özel üretilmiş yem ve sağlık ürünleri çeşitleri.</p>
+                    <a href="kucukbas.html" class="category-button">İncele</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <img src="kanatli.jpg" alt="Kanatlı Hayvan Ürünleri" class="category-image">
+                <div class="category-content">
+                    <h3 class="category-name">Kanatlı Hayvan Ürünleri</h3>
+                    <p class="category-desc">Tavuk, hindi ve diğer kanatlı hayvanlar için özel yem ve sağlık çözümleri.</p>
+                    <a href="kanatli.html" class="category-button">İncele</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <img src="sera1.jpg" alt="Sera Ürünleri" class="category-image">
+                <div class="category-content">
+                    <h3 class="category-name">Sera Ürünleri</h3>
+                    <p class="category-desc">Toprak sağlığı, bitki gelişimi ve verimlilik için sera ürünleri ve çözümleri.</p>
+                    <a href="sera.html" class="category-button">İncele</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3 class="info-title">Kalite Garantisi</h3>
+                <p class="info-text">Tüm ürünlerimiz kalite kontrol süreçlerinden geçerek size ulaştırılır.</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <h3 class="info-title">Hızlı Teslimat</h3>
+                <p class="info-text">Siparişleriniz Türkiye'nin her yerine hızlı ve güvenli şekilde gönderilir.</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3 class="info-title">Teknik Destek</h3>
+                <p class="info-text">Uzman ekibimiz ürün kullanımı hakkında 7/24 destek sağlar.</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="copyright">
+                &copy; 2025 Zirve Tarım. Tüm hakları saklıdır.
+            </div>
+            
+            <div class="social-media">
+                <div class="social-title">Bizi Takip Edin</div>
+                <div class="social-icons">
+                    <a href="#"><i class
