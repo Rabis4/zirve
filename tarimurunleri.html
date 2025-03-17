@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarım ve Sera Ürünleri - Zirve Tarım</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .logo-text {
+            font-family: 'Georgia', serif;
+            font-size: 40px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #4b8e26, #a4c639, #4b8e26);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            animation: logoShine 6s linear infinite;
+            transition: transform 0.3s ease;
+            cursor: default;
+        }
+
+        .logo-text span {
+            font-style: italic;
+            font-family: 'Courier New', monospace;
+            color: #608c2a;
+            -webkit-text-fill-color: initial;
+            background: none;
+            text-shadow: 1px 1px 3px rgba(96, 140, 42, 0.4);
+        }
+
+        .logo-text:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes logoShine {
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 30px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: #608c2a;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: #608c2a;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Ana İçerik Bölümü */
+        .main-content {
+            max-width: 1200px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #333;
+            text-align: center;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: #608c2a;
+            margin: 15px auto 0;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* Ürün Kategorileri */
+        .product-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .category-filter {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: white;
+            border: 2px solid #608c2a;
+            color: #608c2a;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-filter:hover, .category-filter.active {
+            background-color: #608c2a;
+            color: white;
+        }
+
+        /* Ürün Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #608c2a;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .product-details {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #608c2a;
+            margin-bottom: 15px;
+        }
+
+        .product-button {
+            display: block;
+            width: 100%;
+            background-color: #608c2a;
+            color: white;
+            padding: 12px 0;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+
+        .product-button:hover {
+            background-color: #4a6d20;
+        }
+
+        /* Sera Bölümü */
+        .greenhouse-section {
+            margin-top: 70px;
+            padding: 50px 0;
+            background-color: #f0f8eb;
+            border-radius: 15px;
+        }
+
+        .greenhouse-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .greenhouse-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .greenhouse-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .greenhouse-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .greenhouse-text {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .greenhouse-text h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #608c2a;
+        }
+
+        .greenhouse-text p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .greenhouse-features {
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #608c2a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        /* İletişim Bölümü */
+        .contact-section {
+            background-color: #608c2a;
+            padding: 50px 0;
+            text-align: center;
+            margin-top: 70px;
+            color: white;
+            border-radius: 15px;
+        }
+
+        .contact-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .contact-description {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        .contact-button {
+            display: inline-block;
+            background-color: white;
+            color: #608c2a;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+
+        .contact-button:hover {
+            background-color: transparent;
+            color: white;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 30px 0;
+            margin-top: 70px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .social-media {
+            display: flex;
+            align-items: center;
+        }
+        
+        .social-title {
+            margin-right: 20px;
+            font-size: 20px;
+        }
+        
+        .social-icons {
+            display: flex;
+        }
+        
+        .social-icons a {
+            margin-left: 15px;
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Duyarlı Tasarım */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            .nav-menu {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-menu li {
+                margin: 10px;
+            }
+            
+            .main-content {
+                margin-top: 180px;
+            }
+
+            .product-categories {
+                flex-wrap: wrap;
+            }
+
+            .category-filter {
+                margin-bottom: 10px;
+            }
+            
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .social-media {
+                margin-top: 20px;
+                flex-direction: column;
+            }
+            
+            .social-title {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-text">ZİRVE <span>TARIM</span></div>
+            <ul class="nav-menu">
+                <li><a href="anasayfa.html">Ana Sayfa</a></li>
+                <li><a href="urunler.html">Ürünler</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li><a href="sss.html">S.S.S</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <h1 class="page-title">Tarım ve Sera Ürünlerimiz</h1>
+        <p class="page-subtitle">Zirve Tarım olarak, modern tarım ve seracılık için ihtiyacınız olan tüm ürünleri tek bir çatı altında sunuyoruz. Kaliteli tohum ve fidelerden, sera malzemelerine, sulama sistemlerinden, gübrelere kadar geniş ürün yelpazemizle hizmetinizdeyiz.</p>
+        
+        <!-- Ürün Kategori Filtreleri -->
+        <div class="product-categories">
+            <button class="category-filter active">Tüm Ürünler</button>
+            <button class="category-filter">Tohumlar</button>
+            <button class="category-filter">Sera Malzemeleri</button>
+            <button class="category-filter">Sulama Sistemleri</button>
+            <button class="category-filter">Gübreler</button>
+        </div>
+        
+        <!-- Ürün Grid -->
+        <div class="product-grid">
+            <!-- Tohum Ürünleri -->
+            <div class="product-card">
+                <img src="/api/placeholder/400/320" alt="Domates Tohumu" class="product-image">
+                <span class="product-badge">En Çok Satan</span>
+                <div class="product-details">
+                    <h3 class="product-title">Organik Domates Tohumu</h3>
+                    <p class="product-description">Özel seleksiyon ile üretilmiş, hastalıklara dayanıklı, yüksek verimli domates tohumu. 1000 adet.</p>
+                    <div class="product-price">₺120.00</div>
+                    <a href="#" class="product-button">Sepete Ekle</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="/api/placeholder/400/320" alt="Biber Tohumu" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">Hibrit Biber Tohumu</h3>
+                    <p class="product-description">Dolmalık ve sivri karışık biber tohumu. Yüksek adaptasyon kabiliyeti ve verim. 500 adet.</p>
+                    <div class="product-price">₺85.00</div>
+                    <a href="#" class="product-button">Sepete Ekle</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="/api/placeholder/400/320" alt="Salatalık Tohumu" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">Sera Salatalık Tohumu</h3>
+                    <p class="product-description">Sera yetiştiriciliğine uygun, uzun ömürlü ve bol verimli salatalık tohumu. 300 adet.</p>
+                    <div class="product-price">₺95.00</div>
+                    <a href="#" class="product-button">Sepete Ekle</a>
+                </div>
+            </div>
+            
+            <!-- Sera Malzemeleri -->
+            <div class="product-card">
+                <img src="/api/placeholder/400/320" alt="Sera Örtüsü" class="product-image">
+                <span class="product-badge">Yeni</span>
+                <div class="product-details">
+                    <h3 class="product-title">UV Dayanıklı Sera Örtüsü</h3>
+                    <p class="product-description">Uzun ömürlü, UV ışınlarına dayanıklı, özel formüllü sera örtüsü. 4m x 10m.</p>
+                    <div class="product-price">₺650.00</div>
+                    <a href="#" class="product-button">Sepete Ekle</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="/api/placeholder/400/320" alt="Sera İskeleti" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">Galvanizli Sera İskeleti</h3>
+                    <p class="product-description">Korozyona dayanıklı, uzun ömürlü galvanizli çelik sera iskeleti. 3m x 5m boyutunda.</p>
+                    <div class="product-price">₺1,250.00</div>
+                    <a href="#" class="product-button">Sepete Ekle</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="/api/placeholder/400/320" alt="Sera Havalandırma" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">Otomatik Sera Havalandırma Sistemi</h3>
+                    <p class="product-description">Sıcaklığa duyarlı, elektrik gerektirmeyen otomatik havalandırma sistemi.</p>
+                    <div class="product-price">₺375.00</div>
+                    <a href="#" class="product-button">Sepete Ekle</a>
+                </div>
+            </div>
+            
+            <!-- Sulama Sistemleri -->
+            <div class="product-card">
+                <img src="/api/placeholder/400/320" alt="Damla Sulama" class="product-image">
+                <span class="product-badge">İndirimli</span>
+                <div class="product-details">
+                    <h3 class="product-title">Damla Sulama Sistemi</h3>
+                    <p class="product-description">Ekonomik su kullanımı sağlayan, 1 dönüm arazi için tam set damla sulama sistemi.</p>
+                    <div class="product-price">₺850.00</div>
+                    <a href="#" class="product-button">Sepete Ekle</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="/api/placeholder/400/320" alt="Yağmurlama Sistemi" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">Yağmurlama Sulama Sistemi</h3>
+                    <p class="product-description">Açık arazi sebze ve meyve bahçeleri için ideal yağmurlama sistemi. 500m² için set.</p>
+                    <div class="product-price">₺720.00</div>
+                    <a href="#" class="product-button">Sepete Ekle</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sera Bölümü -->
+        <section class="greenhouse-section">
+            <h2 class="greenhouse-title">Sera Çözümlerimiz</h2>
+            
+            <div class="greenhouse-content">
+                <div class="greenhouse-image">
+                    <img src="/api/placeholder/500/400" alt="Modern Sera Çözümleri">
+                </div>
+                
+                <div class="greenhouse-text">
+                    <h3>Anahtar Teslim Sera Projeleri</h3>
+                    <p>Zirve Tarım olarak, mini hobi seralarından ticari büyük ölçekli seralara kadar her ihtiyaca uygun sera çözümleri sunuyoruz.</p>
+                    <p>Modern tarım teknolojilerini kullanarak, iklim kontrolü sağlayabilen, verimli ve uzun ömürlü sera projeleri tasarlıyor ve uyguluyoruz.</p>
+                    
+                    <div class="greenhouse-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                            <div class="feature-text">
+                                <strong>İklim Kontrol Sistemleri</strong> - Sıcaklık, nem ve havalandırma kontrolü
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <div class="feature-text">
+                                <strong>Otomatik Sulama</strong> - Damla sulama ve sisleme sistemleri
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <div class="feature-text">
+                                <strong>Gölgelendirme</strong> - Otomatik ve manuel gölgelendirme sistemleri
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="feature-text">
+                                <strong>Kurulum ve Bakım</strong> - Profesyonel kurulum ve düzenli bakım hizmetleri
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- İletişim Bölümü -->
+        <section class="contact-section">
+            <h2 class="contact-title">Özel Fiyat Teklifi İster misiniz?</h2>
+            <p class="contact-description">Toplu alımlar, özel sera projeleri veya tarımsal danışmanlık hizmetlerimiz hakkında bilgi almak için bizimle iletişime geçin. Size özel çözümler sunalım.</p>
+            <a href="iletisim.html" class="contact-button">Teklif Alın</a>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-container">
+            <p>© 2023 Zirve Tarım. Tüm Hakları Saklıdır.</p>
+            <div class="social-media">
+                <h3 class="social-title">Bizi Takip Edin</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
