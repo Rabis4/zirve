@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarım Bilgileri - Zirve Tarım</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .logo-text {
+            font-family: 'Georgia', serif;
+            font-size: 40px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #4b8e26, #a4c639, #4b8e26);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            animation: logoShine 6s linear infinite;
+            transition: transform 0.3s ease;
+            cursor: default;
+        }
+
+        .logo-text span {
+            font-style: italic;
+            font-family: 'Courier New', monospace;
+            color: #608c2a;
+            -webkit-text-fill-color: initial;
+            background: none;
+            text-shadow: 1px 1px 3px rgba(96, 140, 42, 0.4);
+        }
+
+        .logo-text:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes logoShine {
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 30px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: #608c2a;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: #608c2a;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .page-content {
+            max-width: 1200px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .page-title {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .page-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: #608c2a;
+            margin: 15px auto;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-details {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #608c2a;
+        }
+        
+        .product-button {
+            display: inline-block;
+            background-color: #608c2a;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .product-button:hover {
+            background-color: #4a6d20;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .social-media {
+            display: flex;
+            align-items: center;
+        }
+        
+        .social-title {
+            margin-right: 20px;
+            font-size: 20px;
+        }
+        
+        .social-icons {
+            display: flex;
+        }
+        
+        .social-icons a {
+            margin-left: 15px;
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
+        }
+        
+        .info-section {
+            background-color: #f0f8e6;
+            padding: 40px 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+        
+        .info-title {
+            font-size: 24px;
+            color: #608c2a;
+            margin-bottom: 20px;
+        }
+        
+        .info-text {
+            line-height: 1.6;
+            color: #444;
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            .nav-menu {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-menu li {
+                margin: 10px;
+            }
+            
+            .page-content {
+                margin-top: 180px;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .social-media {
+                margin-top: 20px;
+                flex-direction: column;
+            }
+            
+            .social-title {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-text">ZİRVE <span>TARIM</span></div>
+            <ul class="nav-menu">
+                <li><a href="anasayfa.html">Ana Sayfa</a></li>
+                <li><a href="urunler.html">Ürünler</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li><a href="sss.html">S.S.S</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <main class="page-content">
+        <h1 class="page-title">Yeni Tarım Ürünlerimiz</h1>
+        
+        <section class="info-section">
+            <h2 class="info-title">Modern Tarımda Yenilikçi Çözümler</h2>
+            <p class="info-text">
+                Zirve Tarım olarak, çiftçilerimize en yüksek verim ve kaliteyi sağlayacak yenilikçi ürünler sunmaktan gurur duyuyoruz. 
+                Sürdürülebilir tarım teknikleri ve modern çözümler ile topraklarımızın geleceğini korurken, üreticilerimizin rekabet gücünü 
+                artırmayı hedefliyoruz. Aşağıda yer alan yeni ürünlerimiz, tarımsal üretimde verimliliği en üst seviyeye çıkarmak için özel 
+                olarak geliştirilmiştir.
+            </p>
+        </section>
+        
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="tohum1.jpg" alt="Premium Mısır Tohumu" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">Premium Mısır Tohumu</h3>
+                    <p class="product-description">Yüksek verimli, hastalıklara dayanıklı hibrit mısır tohumu. Farklı iklim koşullarına uyumlu.</p>
+                    <div class="product-price">₺150.00 / kg</div>
+                    <a href="#" class="product-button">Detaylar</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="gubre1.jpg" alt="Organik Mikro Besin Gübresi" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">Organik Mikro Besin Gübresi</h3>
+                    <p class="product-description">Toprak yapısını iyileştiren, bitki gelişimini hızlandıran organik sertifikalı gübre.</p>
+                    <div class="product-price">₺220.00 / 25kg</div>
+                    <a href="#" class="product-button">Detaylar</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="ilaç1.jpg" alt="Biyolojik Koruma Ajanı" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">Biyolojik Koruma Ajanı</h3>
+                    <p class="product-description">Kimyasal ilaçlara alternatif, ekolojik dengeyi koruyarak zararlılarla mücadele eden biyolojik ürün.</p>
+                    <div class="product-price">₺180.00 / lt</div>
+                    <a href="#" class="product-button">Detaylar</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="sulama1.jpg" alt="Akıllı Sulama Sistemi" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">Akıllı Sulama Sistemi</h3>
+                    <p class="product-description">Toprak nem sensörleriyle çalışan, su tasarrufu sağlayan modern damla sulama sistemi.</p>
+                    <div class="product-price">₺1200.00 / set</div>
+                    <a href="#" class="product-button">Detaylar</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="fide1.jpg" alt="Sertifikalı Domates Fidesi" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">Sertifikalı Domates Fidesi</h3>
+                    <p class="product-description">Yüksek verimli, hastalıklara dayanıklı, sertifikalı domates fideleri.</p>
+                    <div class="product-price">₺8.50 / adet</div>
+                    <a href="#" class="product-button">Detaylar</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="alet1.jpg" alt="Toprak Analiz Kiti" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">Toprak Analiz Kiti</h3>
+                    <p class="product-description">Arazinizin pH, besin değeri ve mineral içeriğini hızlıca ölçebilen pratik analiz kiti.</p>
+                    <div class="product-price">₺350.00</div>
+                    <a href="#" class="product-button">Detaylar</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 Zirve Tarım. Tüm hakları saklıdır.</p>
+            <div class="social-media">
+                <h3 class="social-title">Bizi takip edin:</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
