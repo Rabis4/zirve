@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zirve Tarım</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -19,7 +20,9 @@
         header {
             background-color: white;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: relative;
+            position: fixed;
+            width: 100%;
+            top: 0;
             z-index: 100;
         }
         
@@ -51,18 +54,118 @@
             font-weight: bold;
             font-size: 18px;
             transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: #608c2a;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
         }
         
         .nav-menu a:hover {
             color: #608c2a;
         }
         
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section - Yeniden Tasarlandı */
         .hero-section {
-            height: 500px;
-            background-image: url('/api/placeholder/1200/500');
+            height: 650px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('anasayfa.jpg');
             background-size: cover;
             background-position: center;
             position: relative;
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .hero-content {
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-button {
+            display: inline-block;
+            background-color: #608c2a;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+            border: 2px solid #608c2a;
+        }
+        
+        .hero-button:hover {
+            background-color: transparent;
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        /* Hizmet Kutucukları - Yeni Eklendi */
+        .services {
+            max-width: 1200px;
+            margin: -50px auto 50px;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .service-box {
+            flex: 1;
+            background: white;
+            margin: 0 15px;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .service-box:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            font-size: 40px;
+            color: #608c2a;
+            margin-bottom: 15px;
+        }
+        
+        .service-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .service-desc {
+            color: #666;
+            font-size: 14px;
         }
         
         .featured-products {
@@ -127,7 +230,25 @@
             padding: 50px 20px;
             text-align: center;
             margin: 50px 0;
-            border: 2px dashed #333;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('sera1.jpg') center/cover no-repeat;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
         }
         
         .cta-title {
@@ -190,6 +311,11 @@
             color: white;
             font-size: 24px;
             text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
         }
         
         @media (max-width: 768px) {
@@ -205,6 +331,28 @@
             
             .nav-menu li {
                 margin: 10px;
+            }
+            
+            .hero-section {
+                height: 500px;
+                margin-top: 150px;
+            }
+            
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .services {
+                flex-direction: column;
+                margin: 30px auto;
+            }
+            
+            .service-box {
+                margin: 10px 15px;
             }
             
             .product-categories {
@@ -241,8 +389,40 @@
             </ul>
         </div>
     </header>
-    <img src="anasayfa.jpg" alt="anasayfa" class="anasayfa">2
-  
+    
+    <!-- Hero Section - Yeniden Tasarlandı -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Zirve Tarım ile Verimliliği Keşfedin</h1>
+            <p class="hero-subtitle">Modern tarım çözümleri ve kaliteli ürünlerle çiftçilerimizin yanındayız</p>
+            <a href="urunler.html" class="hero-button">Hemen Keşfedin</a>
+        </div>
+    </section>
+    
+    <!-- Hizmet Kutucukları - Yeni Eklendi -->
+    <div class="services">
+        <div class="service-box">
+            <div class="service-icon">
+                <i class="fas fa-seedling"></i>
+            </div>
+            <h3 class="service-title">Kaliteli Ürünler</h3>
+            <p class="service-desc">Yüksek verim sağlayan sertifikalı tohum ve fideler</p>
+        </div>
+        <div class="service-box">
+            <div class="service-icon">
+                <i class="fas fa-truck-pickup"></i>
+            </div>
+            <h3 class="service-title">Hızlı Teslimat</h3>
+            <p class="service-desc">Türkiye'nin her yerine güvenli ve hızlı gönderim</p>
+        </div>
+        <div class="service-box">
+            <div class="service-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3 class="service-title">Uzman Danışmanlık</h3>
+            <p class="service-desc">Tarım mühendislerimizden profesyonel destek</p>
+        </div>
+    </div>
     
     <section class="featured-products">
         <h2 class="featured-title">Öne çıkan zirai ürünler</h2>
@@ -267,8 +447,10 @@
     </section>
     
     <section class="cta-section">
-        <h2 class="cta-title">Tüm zirai ürünleri keşfedin</h2>
-        <a href="tumUrunler.html" class="cta-button">Ürünlere Göz atın</a>
+        <div class="cta-content">
+            <h2 class="cta-title">Tüm zirai ürünleri keşfedin</h2>
+            <a href="tumUrunler.html" class="cta-button">Ürünlere Göz atın</a>
+        </div>
     </section>
     
     <footer>
@@ -277,12 +459,4 @@
             <div class="social-media">
                 <h3 class="social-title">Sosyal Medya</h3>
                 <div class="social-icons">
-                    <a href="https://www.facebook.com" target="_blank">FB</a>
-                    <a href="https://www.instagram.com" target="_blank">IG</a>
-                    <a href="https://www.twitter.com" target="_blank">X</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+                    <a href="https://www.facebook.com" target="_blank"><i class="fab fa
