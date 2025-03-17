@@ -24,6 +24,7 @@
             width: 100%;
             top: 0;
             z-index: 100;
+            padding: 10px 0;
         }
         
         .header-container {
@@ -32,11 +33,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 0 20px;
         }
         
         .logo {
-            width: 150px;
+            width: 180px;
+            height: 60px;
         }
         
         .nav-menu {
@@ -76,14 +78,14 @@
             width: 100%;
         }
         
-        /* Hero Section - Yeniden Tasarlandı */
+        /* Hero Section - Düzenlendi */
         .hero-section {
             height: 650px;
             background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('anasayfa.jpg');
             background-size: cover;
             background-position: center;
             position: relative;
-            margin-top: 80px;
+            margin-top: 80px; /* Üst boşluk düzeltildi */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -127,7 +129,7 @@
             transform: translateY(-5px);
         }
         
-        /* Hizmet Kutucukları - Yeni Eklendi */
+        /* Hizmet Kutucukları */
         .services {
             max-width: 1200px;
             margin: -50px auto 50px;
@@ -335,7 +337,7 @@
             
             .hero-section {
                 height: 500px;
-                margin-top: 150px;
+                margin-top: 120px; /* Mobil için üst boşluk düzeltildi */
             }
             
             .hero-title {
@@ -379,82 +381,23 @@
 <body>
     <header>
         <div class="header-container">
-            <img src="logo.webp" alt="Zirve Tarım Logo" class="logo">
-            <ul class="nav-menu">
-                <li><a href="anasayfa.html">Ana Sayfa</a></li>
-                <li><a href="urunler.html">Ürünler</a></li>
-                <li><a href="hakkimizda.html">Hakkımızda</a></li>
-                <li><a href="iletisim.html">İletişim</a></li>
-                <li><a href="sss.html">S.S.S</a></li>
-            </ul>
-        </div>
-    </header>
-    
-    <!-- Hero Section - Yeniden Tasarlandı -->
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1 class="hero-title">Zirve Tarım ile Verimliliği Keşfedin</h1>
-            <p class="hero-subtitle">Modern tarım çözümleri ve kaliteli ürünlerle çiftçilerimizin yanındayız</p>
-            <a href="urunler.html" class="hero-button">Hemen Keşfedin</a>
-        </div>
-    </section>
-    
-    <!-- Hizmet Kutucukları - Yeni Eklendi -->
-    <div class="services">
-        <div class="service-box">
-            <div class="service-icon">
-                <i class="fas fa-seedling"></i>
-            </div>
-            <h3 class="service-title">Kaliteli Ürünler</h3>
-            <p class="service-desc">Yüksek verim sağlayan sertifikalı tohum ve fideler</p>
-        </div>
-        <div class="service-box">
-            <div class="service-icon">
-                <i class="fas fa-truck-pickup"></i>
-            </div>
-            <h3 class="service-title">Hızlı Teslimat</h3>
-            <p class="service-desc">Türkiye'nin her yerine güvenli ve hızlı gönderim</p>
-        </div>
-        <div class="service-box">
-            <div class="service-icon">
-                <i class="fas fa-users"></i>
-            </div>
-            <h3 class="service-title">Uzman Danışmanlık</h3>
-            <p class="service-desc">Tarım mühendislerimizden profesyonel destek</p>
-        </div>
-    </div>
-    
-    <section class="featured-products">
-        <h2 class="featured-title">Öne çıkan zirai ürünler</h2>
-        <div class="product-categories">
-            <a href="buyukbas.html" class="category-item">
-                <img src="büyükbaş.jpg" alt="Büyükbaş" class="category-img">
-                <h3 class="category-name">Büyükbaş</h3>
-            </a>
-            <a href="kucukbas.html" class="category-item">
-                <img src="küçük.webp" alt="Küçükbaş" class="category-img">
-                <h3 class="category-name">Küçükbaş</h3>
-            </a>
-            <a href="kanatli.html" class="category-item">
-                <img src="kanatli.jpg" alt="Kanatlı" class="category-img">
-                <h3 class="category-name">Kanatlı</h3>
-            </a>
-            <a href="sera.html" class="category-item">
-                <img src="sera1.jpg" alt="Sera" class="category-img">
-                <h3 class="category-name">Sera</h3>
-            </a>
-        </div>
-    </section>
-    
-    <section class="cta-section">
-        <div class="cta-content">
-            <h2 class="cta-title">Tüm zirai ürünleri keşfedin</h2>
-            <a href="tumUrunler.html" class="cta-button">Ürünlere Göz atın</a>
-        </div>
-    </section>
-    
-    <footer>
-        <div class="footer-container">
-            <img src="logo.webp" alt="Zirve Tarım Logo" class="footer-logo">
-            <div class="social-media">
-                <h3 class="social-title">Sosyal
+            <!-- Logo SVG doğrudan gömülü -->
+            <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 150">
+              <!-- Arka plan -->
+              <rect width="400" height="150" fill="white"/>
+              
+              <!-- Güneş -->
+              <circle cx="110" cy="75" r="40" fill="#f7cb4d"/>
+              <circle cx="110" cy="75" r="30" fill="#f9d77e"/>
+              
+              <!-- Buğday - Sol -->
+              <path d="M75 70 Q65 55, 70 45 Q75 50, 75 70" fill="#e3a935"/>
+              <path d="M75 70 Q85 55, 80 45 Q75 50, 75 70" fill="#e3a935"/>
+              <path d="M65 80 Q55 65, 60 55 Q65 60, 65 80" fill="#e3a935"/>
+              <path d="M65 80 Q75 65, 70 55 Q65 60, 65 80" fill="#e3a935"/>
+              
+              <!-- Buğday - Sağ -->
+              <path d="M155 70 Q145 55, 150 45 Q155 50, 155 70" fill="#e3a935"/>
+              <path d="M155 70 Q165 55, 160 45 Q155 50, 155 70" fill="#e3a935"/>
+              <path d="M145 80 Q135 65, 140 55 Q145 60, 145 80" fill="#e3a935"/>
+              <path d="
