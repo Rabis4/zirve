@@ -492,5 +492,317 @@
                 </h3></div>
         
     </footer>
+    <script>
+        // Sayfanın tamamen yüklenmesini bekleyin
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Menü öğeleri için hover efekti
+    const navItems = document.querySelectorAll('.nav-menu a');
+    
+    navItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px)';
+            this.style.transition = 'transform 0.3s ease';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // 2. Hero butonuna tıklama animasyonu
+    const heroButton = document.querySelector('.hero-button');
+    
+    if (heroButton) {
+        heroButton.addEventListener('click', function(e) {
+            // Butonun içinde dalgalanma efekti
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple-effect');
+            
+            this.appendChild(ripple);
+            
+            const x = e.clientX - e.target.getBoundingClientRect().left;
+            const y = e.clientY - e.target.getBoundingClientRect().top;
+            
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    }
+    
+    // 3. Servis kutularına tıklama efekti
+    const serviceBoxes = document.querySelectorAll('.service-box');
+    
+    serviceBoxes.forEach(box => {
+        box.addEventListener('click', function() {
+            this.classList.toggle('active-service');
+            
+            // Servis kutusunun detaylarını göster/gizle
+            const currentDesc = this.querySelector('.service-desc');
+            const fullDesc = this.getAttribute('data-full-desc') || currentDesc.textContent;
+            
+            if (this.classList.contains('active-service')) {
+                const expandedInfo = document.createElement('div');
+                expandedInfo.classList.add('expanded-service-info');
+                expandedInfo.innerHTML = `<p>${fullDesc}</p>`;
+                this.appendChild(expandedInfo);
+                
+                expandedInfo.style.maxHeight = '0';
+                setTimeout(() => {
+                    expandedInfo.style.maxHeight = expandedInfo.scrollHeight + 'px';
+                }, 10);
+            } else {
+                const expandedInfo = this.querySelector('.expanded-service-info');
+                if (expandedInfo) {
+                    expandedInfo.style.maxHeight = '0';
+                    setTimeout(() => {
+                        expandedInfo.remove();
+                    }, 300);
+                }
+            }
+        });
+    });
+    
+    // 4. Ürün kategorilerine hover efekti
+    const categoryItems = document.querySelectorAll('.category-item');
+    
+    categoryItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            const img = this.querySelector('.category-img');
+            img.style.transform = 'scale(1.1)';
+            img.style.transition = 'transform 0.5s ease';
+            
+            const name = this.querySelector('.category-name');
+            name.style.backgroundColor = '#608c2a';
+            name.style.color = 'white';
+            name.style.transition = 'all 0.3s ease';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            const img = this.querySelector('.category-img');
+            img.style.transform = 'scale(1)';
+            
+            const name = this.querySelector('.category-name');
+            name.style.backgroundColor = '';
+            name.style.color = '';
+        });
+    });
+    
+    // 5. Sayfa kaydırma animasyonu için gözlemci
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, {threshold: 0.1});
+        
+        // Gözlemlenecek elementler
+        document.querySelectorAll('.service-box, .category-item, .cta-section').forEach(el => {
+            observer.observe(el);
+            el.classList.add('fade-in-element');
+        });
+    }
+    
+    // 6. Duyuru banner'ı
+    function createAnnouncement() {
+        const announcement = document.createElement('div');
+        announcement.className = 'announcement-banner';
+        announcement.innerHTML = `
+            <p>Yeni sezon ürünlerimiz geldi! <a href="urunler.html">Hemen inceleyin</a></p>
+            <span class="close-announcement">&times;</span>
+        `;
+        
+        document.body.insertBefore(announcement, document.body.firstChild);
+        
+        document.querySelector('.close-announcement').addEventListener('click', function() {
+            announcement.style.height = '0';
+            setTimeout(() => {
+                announcement.remove();
+            }, 300);
+            
+            // Banner'ı 7 gün boyunca gösterme
+            localStorage.setItem('announcementClosed', Date.now());
+        });
+    }
+    
+    // Eğer banner daha önce kapatılmadıysa veya 7 gün geçtiyse göster
+    const lastClosed = localStorage.getItem('announcementClosed');
+    if (!lastClosed || (Date.now() - lastClosed > 7 * 24 * 60 * 60 * 1000)) {
+        setTimeout(createAnnouncement, 2000);
+    }
+    
+    // 7. Sayfa yükleme animasyonu
+    function pageLoadAnimation() {
+        const overlay = document.createElement('div');
+        overlay.className = 'page-load-overlay';
+        overlay.innerHTML = `
+            <div class="loader">
+                <div class="logo-text-loader">ZİRVE <span>TARIM</span></div>
+                <div class="spinner"></div>
+            </div>
+        `;
+        
+        document.body.appendChild(overlay);
+        
+        setTimeout(() => {
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.remove();
+            }, 500);
+        }, 1500);
+    }
+    
+    pageLoadAnimation();
+});
+
+// CSS ekleme fonksiyonu
+function addStyles() {
+    const stylesheet = document.createElement('style');
+    stylesheet.textContent = `
+        .ripple-effect {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        .hero-button {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .active-service {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background-color: #f8f8f8;
+        }
+        
+        .expanded-service-info {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.3s ease;
+            padding: 0 15px;
+        }
+        
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .announcement-banner {
+            background-color: #608c2a;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            position: relative;
+            height: 50px;
+            transition: height 0.3s ease;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .announcement-banner p {
+            margin: 0;
+            font-size: 16px;
+        }
+        
+        .announcement-banner a {
+            color: white;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        
+        .close-announcement {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        .page-load-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loader {
+            text-align: center;
+        }
+        
+        .logo-text-loader {
+            font-family: 'Georgia', serif;
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #4b8e26, #a4c639, #4b8e26);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            animation: logoShine 6s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        .logo-text-loader span {
+            font-style: italic;
+            font-family: 'Courier New', monospace;
+            color: #608c2a;
+            -webkit-text-fill-color: initial;
+            background: none;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: #608c2a;
+            margin: 0 auto;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    `;
+    
+    document.head.appendChild(stylesheet);
+}
+
+// Stilleri ekle
+addStyles();
+    </script>
 </body>
+
     </html>
